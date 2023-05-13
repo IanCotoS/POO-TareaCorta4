@@ -1,6 +1,7 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -36,6 +37,9 @@ public class Etiqueta extends Thread{
     private void blink(){
         if(servidor.getActivo()) {
             System.out.println(servidor.getActivo());
+            JOptionPane.showInternalMessageDialog(null, 
+            "Pulse aceptar para mostrarlo", "Etiqueta encendido", 
+            JOptionPane.INFORMATION_MESSAGE);
             while(servidor.getActivo()){
                 try {
                     System.out.println(servidor.getActivo());
@@ -47,8 +51,10 @@ public class Etiqueta extends Thread{
                     e.printStackTrace();
                 }
             }
+            JOptionPane.showInternalMessageDialog(null, "Pulse aceptar para continuar",
+            "Etiqueta apagada", JOptionPane.INFORMATION_MESSAGE); // Para retroalimentar al usuario
+            blinker.setBackground(Color.WHITE); // Asegura que el panel siempre queda en blanco al final
         }
-        blinker.setBackground(Color.WHITE); // Asegura que el panel siempre queda en blanco al final
     }
 
     @Override

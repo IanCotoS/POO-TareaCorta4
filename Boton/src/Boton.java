@@ -1,6 +1,7 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -46,19 +47,28 @@ public class Boton implements ActionListener{
             System.out.println(e);
         }
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equals("encender")){
-            button.setText("apagar");
-            button.setActionCommand("apagar");
-            activo = true;
+        int input = JOptionPane.showConfirmDialog(null, 
+                "¿Quiere actualizar el estado?", "Seleciona una opción...",
+                JOptionPane.YES_NO_CANCEL_OPTION);
+        if (input == 0){
+            if(e.getActionCommand().equals("encender")){
+                button.setText("apagar");
+                button.setActionCommand("apagar");
+                activo = true;
+            }
+            else{
+                button.setText("encender");
+                button.setActionCommand("encender");
+                activo = false;
+            }
+            conectar();
         }
         else{
-            button.setText("encender");
-            button.setActionCommand("encender");
-            activo = false;
+            JOptionPane.showInternalMessageDialog(null, "No se ha actualizado el estado de etiqueta",
+            "Acción cancelada del botón", JOptionPane.INFORMATION_MESSAGE); // Para retroalimentar al usuario
         }
-        conectar();
     }
 }
